@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind To-Do List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+      <h1 class="text-2xl font-bold text-center mb-4">To-Do List</h1>
+      <form id="todoForm" class="flex mb-4">
+        <input 
+          type="text" 
+          id="todoInput" 
+          placeholder="Add a new task..." 
+          class="flex-1 p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
+        />
+        <button 
+          type="submit" 
+          class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600">
+          Add
+        </button>
+      </form>
+      <ul id="todoList" class="list-none space-y-2">
+        <!-- Tasks will appear here -->
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('todoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const input = document.getElementById('todoInput');
+      const task = input.value.trim();
+
+      if (task) {
+        const list = document.getElementById('todoList');
+        const listItem = document.createElement('li');
+        listItem.className = "flex items-center justify-between bg-gray-200 p-2 rounded-lg";
+        listItem.innerHTML = `
+          <span>${task}</span>
+          <button class="text-red-500 hover:text-red-700" onclick="this.parentElement.remove()">Delete</button>
+        `;
+        list.appendChild(listItem);
+        input.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
